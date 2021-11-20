@@ -471,17 +471,245 @@ instead of alert("Error")</span></li>
 <li>there is better ways of doing validation - but the course might
 be too short for that (2 hours course)</li>
 </ul>
-<li>next we need the logic: for going to the next section or going
-back</li>
+<li>next we need the logic: for going to the next component</li>
+<ul>
+<li>and the next components needs also the user input</li>
 <li><br /></li>
 </ul>
+</ul>
+<div><span style="background-color: rgb(255, 255, 0);">Setting up
+the context</span></div>
+<div>
+<ul>
+<li>what will link all the component together</li>
+<ul>
+<li>we could use <span style=
+"background-color: rgb(255, 255, 0);">Redux</span> for that, the
+<span style="background-color: rgb(255, 255, 0);">context</span> or
+by <span style="background-color: rgb(255, 255, 0);">passing
+props</span></li>
+<ul>
+<li>Note: for the props way, see the other course by Josh</li>
+</ul>
+<li>in contrast to the other (shortened) course by Josh, we can
+pass props directly in the component!</li>
+<li>in our case using context is probably easier</li>
+</ul>
+<li>when it comes to contexts, often a good choice are classes</li>
+<ul>
+<li>but you can instead also create functions</li>
+<li>contexts usually have a own js file, in a context folder; the
+file could be named index.js</li>
+</ul>
+<li>as reminder: handy shortcuts from Josh course:</li>
+<ul>
+<li>imrc, cc, sfc</li>
+<li>followed by tab</li>
+</ul>
+<li>in index.js we have</li>
+<ul>
+<li>
+<div style=
+"color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; line-height: 19px; white-space: pre;">
+<div><span style="color: #c586c0;">import</span> <span style=
+"color: #9cdcfe;">React</span>, { <span style=
+"color: #9cdcfe;">Component</span> } <span style=
+"color: #c586c0;">from</span> <span style=
+"color: #ce9178;">'react'</span>;</div>
+<br />
+<br />
+<div><span style="color: #569cd6;">const</span> <span style=
+"color: #4fc1ff;">MyContext</span> = <span style=
+"color: #4ec9b0;">React</span>.<span style=
+"color: #dcdcaa;">createContext</span>();</div>
+<div><span style="color: #569cd6;">class</span> <span style=
+"color: #4ec9b0;">MyProvider</span> <span style=
+"color: #569cd6;">extends</span> <span style=
+"color: #4ec9b0;">React</span>.<span style=
+"color: #4ec9b0;">Component</span> {</div>
+<div><span style="color: #dcdcaa;">render</span>() {</div>
+<div><span style="color: #c586c0;">return</span> <span style=
+"color: #808080;">&lt;</span><span style=
+"color: #569cd6;">div</span><span style=
+"color: #808080;">&gt;&lt;/</span><span style=
+"color: #569cd6;">div</span><span style=
+"color: #808080;">&gt;</span>;</div>
+<div>}</div>
+<div>}</div>
+<br />
+<div><span style="color: #569cd6;">class</span> <span style=
+"color: #4ec9b0;">MyContext</span> <span style=
+"color: #569cd6;">extends</span> <span style=
+"color: #4ec9b0;">React</span>.<span style=
+"color: #4ec9b0;">Component</span> {</div>
+<div><span style="color: #dcdcaa;">render</span>() {</div>
+<div><span style="color: #c586c0;">return</span> <span style=
+"color: #808080;">&lt;</span><span style=
+"color: #569cd6;">div</span><span style=
+"color: #808080;">&gt;&lt;/</span><span style=
+"color: #569cd6;">div</span><span style=
+"color: #808080;">&gt;</span>;</div>
+<div>}</div>
+<div>}</div>
+<br />
+<div><span style="color: #c586c0;">export</span> {</div>
+<div><span style="color: #4ec9b0;">MyProvider</span>,</div>
+<div><span style="color: #4fc1ff;">MyContext</span></div>
+<div>}</div>
+</div>
+</li>
+<li>as my provider: MyProvider needs to connect to the context</li>
+<ul>
+<li>it will be shared to all the other components</li>
+<li>we use the class to handle everything that happens on the
+context</li>
+</ul>
+<li>the context needs to wrap everything we are doing in the
+application!</li>
+<li>the App will be a children of index.js!</li>
+<ul>
+<li><span style=
+"background-color: rgb(255, 255, 0);">src/context/index.js is the
+top component</span></li>
+</ul>
+<li><span style=
+"background-color: rgb(255, 255, 0);">src/index.js</span></li>
+<ul>
+<li>myProvider we have to put as parent of this component</li>
+<li>so we wrap myProvider around it!<br />
+<div style=
+"color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; line-height: 19px; white-space: pre;">
+<div><span style="color: #c586c0;">import</span> <span style=
+"color: #9cdcfe;">React</span> <span style=
+"color: #c586c0;">from</span> <span style=
+"color: #ce9178;">'react'</span>;</div>
+<div><span style="color: #c586c0;">import</span> <span style=
+"color: #9cdcfe;">ReactDOM</span> <span style=
+"color: #c586c0;">from</span> <span style=
+"color: #ce9178;">'react-dom'</span>;</div>
+<div><span style="color: #c586c0;">import</span> <span style=
+"color: #9cdcfe;">App</span> <span style=
+"color: #c586c0;">from</span> <span style=
+"color: #ce9178;">'./App'</span>;</div>
+<br />
+<div><span style="color: #c586c0;">import</span> { <span style=
+"color: #9cdcfe;">MyProvider</span> } <span style=
+"color: #c586c0;">from</span> <span style=
+"color: #ce9178;">'./context'</span></div>
+<br />
+<div><span style="color: #9cdcfe;">ReactDOM</span>.<span style=
+"color: #dcdcaa;">render</span>(</div>
+<div><span style="color: #808080;">&lt;</span><span style=
+"color: #4ec9b0;">React.StrictMode</span><span style=
+"color: #808080;">&gt;</span></div>
+<div><span style="color: #808080;">&lt;</span><span style=
+"color: #4ec9b0;">MyProvider</span><span style=
+"color: #808080;">&gt;</span></div>
+<div><span style="color: #808080;">&lt;</span><span style=
+"color: #4ec9b0;">App</span> <span style=
+"color: #808080;">/&gt;</span></div>
+<div><span style="color: #808080;">&lt;/</span><span style=
+"color: #4ec9b0;">MyProvider</span><span style=
+"color: #808080;">&gt;</span></div>
+<div><span style="color: #808080;">&lt;/</span><span style=
+"color: #4ec9b0;">React.StrictMode</span><span style=
+"color: #808080;">&gt;</span>,</div>
+<div><span style="color: #9cdcfe;">document</span>.<span style=
+"color: #dcdcaa;">getElementById</span>(<span style=
+"color: #ce9178;">'root'</span>)</div>
+<div>);</div>
+</div>
+</li>
+</ul>
+<li>in all components we should be able to access the screen</li>
+<li>we need a way to access this context</li>
+<ul>
+<li>special way of doing this: since we are using a functional
+component we can use a <span style=
+"background-color: rgb(255, 255, 0);">hook</span></li>
+<li>so in App.js we import...<br />
+<div style=
+"color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; line-height: 19px; white-space: pre;">
+<span style="color: #c586c0;">import</span> { <span style=
+"color: #9cdcfe;">useContext</span> } <span style=
+"color: #c586c0;">from</span> <span style=
+"color: #ce9178;">'react'</span></div>
+</li>
+<li>we also need the context:<br />
+<div style=
+"color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; line-height: 19px; white-space: pre;">
+<span style="color: #c586c0;">import</span> { <span style=
+"color: #9cdcfe;">MyContext</span> } <span style=
+"color: #c586c0;">from</span> <span style=
+"color: #ce9178;">'./context'</span>;</div>
+</li>
+<li>now we can use the hook like this:<br />
+&gt;&nbsp; <span style=
+"font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; white-space: pre; background-color: rgb(30, 30, 30); color: rgb(86, 156, 214);">
+const</span> <span style=
+"font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; white-space: pre; background-color: rgb(30, 30, 30); color: rgb(79, 193, 255);">
+context</span> <span style=
+"color: rgb(212, 212, 212); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; white-space: pre; background-color: rgb(30, 30, 30);">
+=</span> <span style=
+"font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; white-space: pre; background-color: rgb(30, 30, 30); color: rgb(220, 220, 170);">
+useContext</span><span style=
+"color: rgb(212, 212, 212); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; white-space: pre; background-color: rgb(30, 30, 30);">(</span><span style="font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; white-space: pre; background-color: rgb(30, 30, 30); color: rgb(79, 193, 255);">MyContext</span><span style="color: rgb(212, 212, 212); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; white-space: pre; background-color: rgb(30, 30, 30);">)</span></li>
+</ul>
+</ul>
+<li>in initial.jsx we also connect to the context</li>
+<li>we also need to change the state of screen in a function; in
+index.js</li>
+<ul>
+<li>we need to use goTo in the MyContext Component instance, just
+like with state</li>
+<ul>
+<li><br /></li>
+</ul>
+<li>
+<div style=
+"color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; line-height: 19px; white-space: pre;">
+<div><span style="color: #dcdcaa;">handleGoTo</span> =
+(<span style="color: #9cdcfe;">value</span>) <span style=
+"color: #569cd6;">=&gt;</span> {</div>
+<div><span style="color: #569cd6;">this</span>.<span style=
+"color: #dcdcaa;">setState</span>({ <span style=
+"color: #9cdcfe;">screen</span><span style=
+"color: #9cdcfe;">:</span> <span style=
+"color: #9cdcfe;">value</span> })</div>
+<div>}</div>
+</div>
+</li>
+<li>then put in the button event (in initial.jsx):</li>
+<ul>
+<li>
+<div style=
+"color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: 'Droid Sans Mono', monospace, monospace, 'Droid Sans Fallback'; font-size: 14px; line-height: 19px; white-space: pre;">
+<span style="color: #4fc1ff;">context</span>.<span style=
+"color: #dcdcaa;">goTo</span>(<span style=
+"color: #b5cea8;">1</span>);</div>
+</li>
+</ul>
+</ul>
+<li>also we need a function which stores whatever the user is
+typing</li>
+<ul>
+<li>a new property to store the question</li>
+<ul>
+<li><br /></li>
+<li><br />
+<br /></li>
+</ul>
+</ul>
+</ul>
+<div><br /></div>
+</div>
 </div>
 </div>
 </div>
 </en-note>]]></Content>
-        <ContentLength>21431</ContentLength>
+        <ContentLength>31409</ContentLength>
         <Created>1637276997785</Created>
-        <Updated>1637366158554</Updated>
+        <Updated>1637370825331</Updated>
         <Active>true</Active>
         <UpdateSequenceNumber>0</UpdateSequenceNumber>
         <NotebookGuid>d0d14f74-6b64-483b-8f9d-b6474c5eb883</NotebookGuid>
