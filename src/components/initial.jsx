@@ -26,7 +26,7 @@ const Initial = () => {
 
   return (
     <div>
-      <h1>Ask a qeustion</h1>
+      <h1>Ask a question</h1>
       <input
         ref={textInput}
         onChange={handleChange}
@@ -37,7 +37,10 @@ const Initial = () => {
       />
 
       {showNext && (
-        <button className="btn" onClick={handleSubmit}>
+        <button
+          className="btn animate__animated animate__fadeIn"
+          onClick={handleSubmit}
+        >
           Next
         </button>
       )}
