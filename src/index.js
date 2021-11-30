@@ -4,7 +4,6 @@ import App from './App';
 
 import { MyProvider } from './context'
 
-
 ReactDOM.render(
   <React.StrictMode>
     <MyProvider>
